@@ -18,6 +18,7 @@ sub new {
 
     if (! $ENV{NO_BOARD}){
         if (! defined $ENV{RPI_PIN_MODE}){
+            $ENV{RPI_PIN_MODE} = 1;
             $self->setup_gpio;
         }
     }
