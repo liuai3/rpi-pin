@@ -3,12 +3,11 @@ use warnings;
 
 use lib '.';
 
-use RPi::WiringPi;
+use RPi::Pin;
 use RPi::WiringPi::Constant qw(:all);
-use RPi::WiringPi::Interrupt;
 use Test::More;
 
-my $mod = 'RPi::WiringPi';
+my $mod = 'RPi::Pin';
 
 my $run;
 
@@ -40,64 +39,52 @@ BEGIN {
     }
 }
 
-my $pi = $mod->new;
-
 # pin specific interrupts
 
 if (! $ENV{NO_BOARD}){
 
-    my $pin = $pi->pin(18);
+    my $pin = $mod->new(18);
 
-    $pin->interrupt_set(EDGE_RISING, 'main::handler');
+    # EDGE_RISING
+    $pin->set_interrupt(2, 'main::handler');
 
-    $pin->pull(PUD_DOWN);
+    $pin->pull(1); # PUD_DOWN
 
     # trigger the interrupt
 
-    $pin->pull(PUD_UP);
-    $pin->pull(PUD_DOWN);
+    $pin->pull(2); # PUD_UP
+    $pin->pull(1); # PUD_DOWN
 
     is $ENV{PI_INTERRUPT}, 1, "1st interrupt ok";
 
     # trigger the interrupt
 
-    $pin->pull(PUD_UP);
-    $pin->pull(PUD_DOWN);
+    $pin->pull(2); # PUD_UP
+    $pin->pull(1); # PUD_DOWN
     
     is $ENV{PI_INTERRUPT}, 2, "2nd interrupt ok";
 
     # trigger the interrupt
 
-    $pin->pull(PUD_UP);
-    $pin->pull(PUD_DOWN);
+    $pin->pull(2); # PUD_UP
+    $pin->pull(1); # PUD_DOWN
     
     is $ENV{PI_INTERRUPT}, 3, "3rd interrupt ok";
+
+    # trigger the interrupt
+
+    $pin->pull(2); # PUD_UP
+    $pin->pull(1); # PUD_DOWN
     
-}
+    is $ENV{PI_INTERRUPT}, 4, "4th interrupt ok";
+ 
+    # trigger the interrupt
 
-$pi->cleanup;
-
-# interrupt via main module
-
-if (! $ENV{NO_BOARD}){
-
-    my $int = RPi::WiringPi->interrupt(18, EDGE_RISING, 'handler');
-
-    my $pin = $pi->pin(18);
-    $pin->pull(PUD_DOWN);
-
-    $pin->pull(PUD_UP);
-    $pin->pull(PUD_DOWN);
+    $pin->pull(2); # PUD_UP
+    $pin->pull(1); # PUD_DOWN
     
-    is $ENV{PI_INTERRUPT}, 4, "4th interrupt ok, using interrupt object";
-
-    $pin->pull(PUD_UP);
-    $pin->pull(PUD_DOWN);
-    
-    is $ENV{PI_INTERRUPT}, 5, "5th interrupt ok, using interrupt object";
+    is $ENV{PI_INTERRUPT}, 5, "5th interrupt ok";
 
 }
-
-$pi->cleanup;
 
 done_testing();

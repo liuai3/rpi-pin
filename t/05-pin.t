@@ -14,7 +14,7 @@ if (! $ENV{PI_BOARD}){
 
 {# pin
 
-    my $pin = $mod->pin(18);
+    my $pin = $mod->new(18);
 
     is $pin->mode, 0, "pin mode is INPUT by default";
     is $pin->read, 0, "pin status is LOW by default";

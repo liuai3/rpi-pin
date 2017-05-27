@@ -10,18 +10,14 @@ our $VERSION = '2.3601';
 sub new {
     my ($class, $pin) = @_;
 
-    # with shift register, this can be any number
-
-    #if (! defined $pin || ($pin > 40 || $pin < 0)){
-    #    die "pin number must be between 0 and 40\n";
-    #}
-
     if (! defined $pin || $pin !~ /^\d+$/){
         die "pin must be an integer\n";
     }
 
     my $self = bless {}, $class;
-    
+   
+    $self->setup_gpio;
+
     $self->{pin} = $pin;
 
     return $self;
@@ -80,6 +76,10 @@ sub pwm {
 sub num {
     return $_[0]->{pin};
 }
+sub set_interrupt {
+    my ($self, $edge, $callback) = @_;
+    WiringPi::API::set_interrupt($self->num, $edge, $callback);
+}
 sub interrupt_set {
     my ($self, $edge, $callback) = @_;
     $self->set_interrupt($self->num, $edge, $callback);
@@ -136,9 +136,7 @@ Parameters:
 
     $pin_num
 
-Mandatory. 
-
-Mandatory: The pin number to attach to.
+Mandatory, Integer: The pin number to attach to.
 
 =head2 mode($mode)
 
@@ -179,7 +177,7 @@ Parameter:
 Mandatory: C<2> for C<PUD_UP>, C<1> for C<PUD_DOWN> and C<0> for C<PUD_OFF>
 (disabled the resistor).
 
-=head2 interrupt_set($edge, $callback)
+=head2 set_interrupt($edge, $callback)
 
 Listen for an interrupt on a pin, and do something if it is triggered.
 
@@ -196,6 +194,10 @@ The string name of a Perl subroutine that you've already written within your
 code. This is the interrupt handler. When an interrupt is triggered, the code
 in this subroutine will run. If you get errors when the handler is called,
 specify the full package name to the handler (eg: C<'main::callback'>).
+
+=head2 interrupt_set
+
+DEPRECATED; See C<set_interrupt()>.
 
 =head2 pwm($value)
 

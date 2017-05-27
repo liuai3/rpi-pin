@@ -1,11 +1,10 @@
 use strict;
 use warnings;
 
-use Data::Dumper;
-use RPi::WiringPi;
+use RPi::Pin;
 use Test::More;
 
-my $mod = 'RPi::WiringPi';
+my $mod = 'RPi::Pin';
 
 if ($> == 0){
     $ENV{PI_BOARD} = 1;
@@ -23,17 +22,14 @@ if ($> != 0){
     exit;
 }
 
-my $pi = $mod->new;
-
 {# pwm
 
-    my $adc_in = 7;
-
     if (! $ENV{NO_BOARD}) {
-        my $pin = $pi->pin(18);
+        my $pin = $mod->new(18);
         $pin->mode(2);
         is $pin->mode, 2, "pin mode set to PWM ok, and we can read it";
-        $pi->cleanup;
+        $pin->mode(0);
+        is $pin->mode, 0, "pin mode set back to INPUT";
     }
 }
 
