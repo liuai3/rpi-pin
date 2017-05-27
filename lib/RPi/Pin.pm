@@ -15,8 +15,12 @@ sub new {
     }
 
     my $self = bless {}, $class;
-   
-    $self->setup_gpio;
+
+    if (! $ENV{NO_BOARD}){
+        if (! defined $ENV{RPI_PIN_MODE}){
+            $self->setup_gpio;
+        }
+    }
 
     $self->{pin} = $pin;
 
@@ -99,8 +103,6 @@ RPi::Pin - Access and manipulate Raspberry Pi GPIO pins
 
     my $pin = RPi::Pin->new(5);
 
-    $pin->setup_gpio;
-
     $pin->mode(INPUT);
     $pin->write(LOW);
 
@@ -122,8 +124,11 @@ An object that represents a physical GPIO pin.
 
 Using the pin object's methods, the GPIO pins can be controlled and monitored.
 
-Using this module outside of the base L<RPi> object requires you
-to run one of the L<WiringPi::API>'s C<setup*> methods.
+This distribution can be accessed through L<RPi::WiringPi>. Using that
+distribution provides safety and cleanup procedures. Using this module directly
+requires you to reset your pins manually.
+
+We use the C<BCM> (C<GPIO>) pin numbering scheme.
 
 =head1 METHODS
 
