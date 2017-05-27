@@ -1,0 +1,4 @@
+Revision history for RPi-Pin
+
+2.3601 UNREL
+        - separated this distribution from RPi::WiringPi::Pin
