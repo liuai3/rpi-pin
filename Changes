@@ -1,5 +1,8 @@
 Revision history for RPi-Pin
 
+2.3605 UNREL
+        -
+
 2.3604  2017-07-06
         - remove erroneous call to pin_to_gpio() in pwm() (Reported by Francesca
            Andriolo)
