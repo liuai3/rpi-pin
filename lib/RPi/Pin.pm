@@ -79,10 +79,6 @@ sub pwm {
         die "\npin $num isn't set to mode 2 (PWM). pwm() can't be set\n";
     }
 
-    if ($value > 1023 || $value < 0){
-        die "\npwm() value must be 0-1023\n";
-    }
-
     $self->pwm_write($self->num, $value);
 }
 sub num {
