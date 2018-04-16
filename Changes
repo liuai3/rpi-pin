@@ -1,5 +1,8 @@
 Revision history for RPi-Pin
 
+2.3606 UNREL
+        -
+
 2.3605  2018-04-16
         - removed 0-1023 restriction in pwm()
         - removed 'use' statement for RPi::WiringPi::Constant from t/40 as we
