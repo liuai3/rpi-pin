@@ -103,7 +103,7 @@ RPi::Pin - Access and manipulate Raspberry Pi GPIO pins
 =head1 SYNOPSIS
 
     use RPi::Pin;
-    use RPi::Constant qw(:all);
+    use RPi::Const qw(:all);
 
     my $pin = RPi::Pin->new(5);
 
