@@ -4,7 +4,6 @@ use warnings;
 use lib '.';
 
 use RPi::Pin;
-use RPi::Const qw(:all);
 use Test::More;
 
 my $mod = 'RPi::Pin';
