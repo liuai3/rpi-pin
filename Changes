@@ -1,5 +1,8 @@
 Revision history for RPi-Pin
 
+2.3608 UNREL
+        -
+
 2.3607  2019-07-03
         - added comment(), allows you to associate a note or purpose to a pin.
           We've also added a comment parameter in new()
