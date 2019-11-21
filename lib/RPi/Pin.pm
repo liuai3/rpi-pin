@@ -212,6 +212,9 @@ possible values of this method are as follows:
     3       ALT4
     2       ALT5
 
+L<Here's|https://elinux.org/RPi_BCM2835_GPIOshttps://elinux.org/RPi_BCM2835_GPIOs>
+a decent guide to the various ALT settings for each pin.
+
 =head2 read()
 
 Returns C<1> if the pin is C<HIGH> (on) and C<0> if the pin is C<LOW> (off).
