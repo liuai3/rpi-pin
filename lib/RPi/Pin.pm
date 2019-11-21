@@ -83,6 +83,10 @@ sub pull {
 sub pwm {
     my ($self, $value) = @_;
 
+    if ($> != 0){
+        die "\nPWM requires your script to be run as the 'root' user (sudo)\n";
+    }
+
     if ($self->mode != 2 && $self->num == 18){
         my $num = $self->num;
         die "\npin $num isn't set to mode 2 (PWM). pwm() can't be set\n";
