@@ -3,6 +3,7 @@ Revision history for RPi-Pin
 2.3609 UNREL
         - pwm() now does a check for the UID of the calling user, and if it's
           not root, we die (closes #7)
+        - add "comment"/label feature to SYNOPSIS (closes #5)
 
 2.3608  2019-10-19
         - add extra environment checks, and disable tests if required (work on

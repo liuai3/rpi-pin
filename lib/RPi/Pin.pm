@@ -118,7 +118,7 @@ RPi::Pin - Access and manipulate Raspberry Pi GPIO pins
     use RPi::Pin;
     use RPi::Const qw(:all);
 
-    my $pin = RPi::Pin->new(5);
+    my $pin = RPi::Pin->new(5, "Optional descriptive pin label");
 
     $pin->mode(INPUT);
     $pin->write(LOW);
